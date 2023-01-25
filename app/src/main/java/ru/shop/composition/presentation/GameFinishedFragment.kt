@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.shop.composition.R
 import ru.shop.composition.databinding.FragmentGameFinishedBinding
 
 class GameFinishedFragment : Fragment() {
@@ -31,7 +30,7 @@ class GameFinishedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        bindViews()
+        binding.gameResult = args.gameResult
     }
 
     private fun setupClickListeners() {
@@ -54,32 +53,8 @@ class GameFinishedFragment : Fragment() {
         }
     }
 
-    private fun bindViews() {
-        with(binding) {
-            emojiResult.setImageResource(getSmileResId())
-
-            binding.tvRequiredAnswers.text = String.format(
-                getString(R.string.required_score),
-                args.gameResult.gameSettings.minCountOfRightAnswers
-            )
-
-            tvScoreAnswers.text = String.format(
-                getString(R.string.score_answers),
-                args.gameResult.countOfRightAnswers
-            )
-
-            tvRequiredPercentage.text = String.format(
-                getString(R.string.required_percentage),
-                args.gameResult.gameSettings.minPercentOfRightAnswers
-            )
-
-            tvScorePercentage.text = String.format(
-                getString(R.string.score_percentage),
-                getPercentOfRightAnswers()
-            )
-        }
-    }
-
+    /*
+    // перенес в BindingAdapters
     private fun getPercentOfRightAnswers() = with(args.gameResult) {
         if (countOfQuestions == 0) {
             0
@@ -88,6 +63,8 @@ class GameFinishedFragment : Fragment() {
         }
     }
 
+
+    // перенес в BindingAdapters
     private fun getSmileResId(): Int {
         return if (args.gameResult.winner) {
             R.drawable.ic_smile
@@ -95,6 +72,8 @@ class GameFinishedFragment : Fragment() {
             R.drawable.ic_sad
         }
     }
+    */
+
 
     override fun onDestroyView() {
         super.onDestroyView()
